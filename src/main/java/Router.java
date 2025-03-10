@@ -2,6 +2,8 @@ import Controllers.LoanController;
 import Controllers.UserController;
 import io.javalin.Javalin;
 import Controllers.AuthController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /* This class manages all routes so it's the "app class" */
 public class Router {
@@ -34,5 +36,14 @@ public class Router {
                 app.put("/loans/reject", LoanController::rejectLoan);
 
                 app.put("/users", UserController::updateUser);
-            }
+    }
+    public class Example {
+
+        private static final Logger logger
+                = LoggerFactory.getLogger(Example.class);
+
+        public static void main(String[] args) {
+            logger.info("Example log from {}", Example.class.getSimpleName());
+        }
+    }
 }

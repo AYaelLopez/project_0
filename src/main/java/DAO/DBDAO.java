@@ -2,11 +2,15 @@ package DAO;
 
 import model.User;
 import model.Loan;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class DBDAO {
+
+    private static final Logger logger = Logger.getLogger(DBDAO.class.getName()); //line 13
 
     /**
      db connection
@@ -56,7 +60,8 @@ public class DBDAO {
                     if (rs.next()) {
                         accountId = rs.getInt("account_id");
                     } else {
-                        System.err.println("Account ID not found for username: " + user.getUsername());
+                        logger.info("Account  ID not found");
+                        //System.err.println("Account ID not found for username: " + user.getUsername());
                         return; // Exit the method if account_id is not found
                     }
                 }
@@ -71,11 +76,12 @@ public class DBDAO {
                 pstmtUsers.setInt(4, accountId);
                 pstmtUsers.executeUpdate();
             }
-
-            System.out.println("Registered user account successfully");
+            logger.info("Registered user account successfully");
+            //System.out.println("Registered user account successfully");
 
         } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
+            logger.warning("Database error");
+            //System.err.println("Database error: " + e.getMessage());
             e.printStackTrace(); // Print the stack trace for debugging
         }
     }
@@ -146,7 +152,8 @@ public class DBDAO {
                 ptmsLoan.setString(3, loan.getStatus());
                 ptmsLoan.executeUpdate();
             }
-            System.out.println("New loan added successfully");
+            logger.info("Created loan successfully");
+            //System.out.println("New loan added successfully");
 
         } catch (SQLException e) {
             System.out.println("Database error " + e.getMessage());
